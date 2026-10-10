@@ -1,7 +1,7 @@
 // BhuvixTechnology Core Interactivity
 document.addEventListener('DOMContentLoaded', () => {
   initMobileMenu();
-  initScrambleText();
+  initHeroWordReveal();
   initCareerSignal();
   initOfficeTabs();
   initLiveClocks();
@@ -29,41 +29,19 @@ function initMobileMenu() {
   });
 }
 
-// Scramble Text Effect for Hero
-function initScrambleText() {
-  const el = document.querySelector('.heroDecrypt');
-  if (!el) return;
+// Hero Headline Word Reveal Interactivity
+function initHeroWordReveal() {
+  const heading = document.querySelector('.heroTitleReveal');
+  if (!heading) return;
 
-  const targetText = el.getAttribute('data-text') || "Enhance your tech career.";
-  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
-  let iteration = 0;
-  let interval = null;
-
-  function runScramble() {
-    iteration = 0;
-    clearInterval(interval);
-
-    interval = setInterval(() => {
-      el.innerText = targetText
-        .split("")
-        .map((letter, index) => {
-          if (index < iteration) {
-            return targetText[index];
-          }
-          if (letter === " ") return " ";
-          return chars[Math.floor(Math.random() * chars.length)];
-        })
-        .join("");
-
-      if (iteration >= targetText.length) {
-        clearInterval(interval);
-      }
-      iteration += 1 / 2;
-    }, 30);
-  }
-
-  runScramble();
-  el.addEventListener('mouseenter', runScramble);
+  heading.addEventListener('click', () => {
+    const words = heading.querySelectorAll('.revealWord');
+    words.forEach(w => {
+      w.style.animation = 'none';
+      w.offsetHeight; // trigger reflow
+      w.style.animation = '';
+    });
+  });
 }
 
 // Career Signal Dashboard State Switcher
