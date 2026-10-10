@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 64" fill="none">
+  <defs>
+    <linearGradient id="bGradH" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff7a18" />
+      <stop offset="100%" stop-color="#ffd21f" />
+    </linearGradient>
+  </defs>
+  <g transform="translate(4, 6) scale(0.55)">
+    <rect x="4" y="4" width="84" height="84" rx="22" fill="#0c101c" stroke="url(#bGradH)" stroke-width="3"/>
+    <path d="M26 24 L44 24 C54 24 62 30 62 39 C62 46 56 50 50 52 C58 54 64 60 64 69 C64 78 56 84 44 84 L26 84 Z" fill="none" stroke="url(#bGradH)" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <line x1="28" y1="52" x2="48" y2="52" stroke="url(#bGradH)" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="68" cy="28" r="4.5" fill="#ffd21f"/>
+  </g>
+  <text x="66" y="38" font-family="'Space Grotesk', -apple-system, sans-serif" font-weight="700" font-size="22" fill="#080808" letter-spacing="-0.03em">BHUVIX<tspan fill="#ff6b2c">TECH</tspan></text>
+  <text x="68" y="50" font-family="'DM Sans', sans-serif" font-weight="600" font-size="8.5" fill="#717a84" letter-spacing="0.22em">GLOBAL CAREER INFRASTRUCTURE</text>
+</svg>

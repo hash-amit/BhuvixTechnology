@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Career Intelligence Tools — BhuvixTechnology</title>
+  <meta name="description" content="Free Career Intelligence Tools by BhuvixTechnology: Resume Analyzer, LinkedIn Profile Analyzer, Job Match Score, and Interview Readiness.">
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <svg style="position:absolute;width:0;height:0" aria-hidden="true">
+    <defs>
+      <filter id="goo">
+        <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="6"></feGaussianBlur>
+        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 21 -7" result="goo"></feColorMatrix>
+        <feBlend in2="goo" in="SourceGraphic" result="mix"></feBlend>
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <a class="brand" href="index.html">
+      <img src="assets/logo-horizontal.svg" alt="BhuvixTechnology">
+    </a>
+
+    <div class="links">
+      <a href="index.html">Home</a>
+      
+      <div class="navItem">
+        <button type="button">Services <span class="navChev">⌄</span></button>
+        <div class="navDropdown">
+          <a href="services.html#career-strategy">Career Strategy &amp; Planning <small>STRATEGY</small></a>
+          <a href="services.html#resume-rebranding">Resume Rebranding &amp; ATS <small>RESUME</small></a>
+          <a href="services.html#linkedin-rebranding">LinkedIn Profile Rebranding <small>LINKEDIN</small></a>
+          <a href="services.html#skill-development">Skill Development <small>SKILLS</small></a>
+          <a href="services.html#interview-prep">Interview Preparation <small>INTERVIEW</small></a>
+          <a href="services.html#job-campaign">Custom Job Campaigns <small>CAMPAIGN</small></a>
+          <a href="services.html#placement-support">US Market Exposure &amp; Placement <small>PLACEMENT</small></a>
+        </div>
+      </div>
+
+      <div class="navItem">
+        <button type="button" style="color:var(--ink); font-weight:700;">Tools <span class="navChev">⌄</span></button>
+        <div class="navDropdown">
+          <a href="tools.html#resume-analyzer">Resume Analyzer <small>RESUME</small></a>
+          <a href="tools.html#linkedin-analyzer">LinkedIn Profile Analyzer <small>LINKEDIN</small></a>
+          <a href="tools.html#job-match-score">Job Match Score <small>MATCH</small></a>
+          <a href="tools.html#interview-readiness">Interview Readiness <small>READINESS</small></a>
+        </div>
+      </div>
+
+      <a href="how-it-works.html">How It Works</a>
+      <a href="employers.html">Employers</a>
+      <a href="career-advice.html">Career Advice</a>
+      <a href="blog.html">Blogs</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:10px">
+      <a class="navcta openBookingModal" href="contact.html">
+        <span class="blobBtnLabel">Book Your Slot ↗</span>
+      </a>
+      <button type="button" class="navMobileToggle" aria-label="Toggle Menu"><span></span></button>
+    </div>
+  </nav>
+
+  <!-- Mobile Drawer -->
+  <div class="navMobilePanel">
+    <a href="index.html">Home</a>
+    <div class="navMobileGroup">
+      <b>Services</b>
+      <a href="services.html#career-strategy">Career Strategy</a>
+      <a href="services.html#resume-rebranding">Resume Rebranding</a>
+      <a href="services.html#linkedin-rebranding">LinkedIn Rebranding</a>
+      <a href="services.html#skill-development">Skill Development</a>
+      <a href="services.html#interview-prep">Interview Prep</a>
+      <a href="services.html#job-campaign">Job Campaigns</a>
+      <a href="services.html#placement-support">Placement Support</a>
+    </div>
+    <div class="navMobileGroup">
+      <b>Tools</b>
+      <a href="tools.html#resume-analyzer">Resume Analyzer</a>
+      <a href="tools.html#linkedin-analyzer">LinkedIn Profile Analyzer</a>
+      <a href="tools.html#job-match-score">Job Match Score</a>
+      <a href="tools.html#interview-readiness">Interview Readiness</a>
+    </div>
+    <a href="how-it-works.html">How It Works</a>
+    <a href="employers.html">Employers</a>
+    <a href="career-advice.html">Career Advice</a>
+    <a href="blog.html">Blogs</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a class="primary openBookingModal" href="contact.html">Book Your Slot ↗</a>
+  </div>
+
+  <!-- Page Header -->
+  <section class="pageHeader">
+    <div class="grid"></div>
+    <div class="glow"></div>
+    <div class="wrap">
+      <div class="breadcrumbs">
+        <a href="index.html">Home</a>
+        <span>/</span>
+        <span style="color:var(--ink); font-weight:600;">Tools</span>
+      </div>
+      <div class="eyebrow"><i></i> Career Intelligence Suite</div>
+      <h1>Test your readiness in 60 seconds.</h1>
+      <p class="lead">Built on real data from hundreds of successful placements across US Fortune 500 and high-growth engineering teams.</p>
+    </div>
+  </section>
+
+  <!-- Tools Suite Content -->
+  <section class="section white">
+    <div class="wrap" style="display:flex; flex-direction:column; gap:50px;">
+
+      <!-- Tool 1: Resume Analyzer -->
+      <div id="resume-analyzer" style="border:1.5px solid #dce4eb; border-radius:28px; padding:36px; background:#fafbfc;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+          <span style="font-size:10px; letter-spacing:0.18em; font-weight:700; color:var(--primary);">01 / RESUME AUDIT</span>
+          <span style="font-size:11px; background:#fff; border:1px solid #dce4eb; padding:4px 10px; border-radius:99px; font-weight:700;">Instant ATS Check</span>
+        </div>
+        <h2 style="font-family:var(--font-heading); font-size:32px; letter-spacing:-0.03em; margin-bottom:8px;">Resume Analyzer &amp; ATS Score</h2>
+        <p style="color:var(--muted); font-size:14px; margin-bottom:20px;">Paste your resume text below to evaluate keyword density, formatting hygiene, and ATS readability.</p>
+
+        <textarea id="pageResumeText" rows="6" placeholder="Paste your resume experience, skills, and bullets here (e.g., Software Engineer with 4 years in Python, React, AWS, Docker, Kubernetes, Microservices, CI/CD, SQL)..." style="width:100%; border:1px solid #d4dde5; border-radius:16px; padding:16px; font-family:inherit; font-size:13.5px; outline:none; background:#ffffff;"></textarea>
+        
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:14px;">
+          <button type="button" id="pageRunResumeBtn" class="primary">
+            <span class="blobBtnLabel">Analyze My Resume ↗</span>
+          </button>
+          <span style="font-size:12px; color:#788694;">Encrypted · 100% Confidential</span>
+        </div>
+
+        <div id="pageResumeResult" style="display:none; margin-top:24px; border-top:1px solid #e2e8ef; padding-top:24px;"></div>
+      </div>
+
+      <!-- Tool 2: LinkedIn Analyzer -->
+      <div id="linkedin-analyzer" style="border:1.5px solid #dce4eb; border-radius:28px; padding:36px; background:#fafbfc;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+          <span style="font-size:10px; letter-spacing:0.18em; font-weight:700; color:var(--primary);">02 / LINKEDIN INBOUND</span>
+          <span style="font-size:11px; background:#fff; border:1px solid #dce4eb; padding:4px 10px; border-radius:99px; font-weight:700;">Visibility Engine</span>
+        </div>
+        <h2 style="font-family:var(--font-heading); font-size:32px; letter-spacing:-0.03em; margin-bottom:8px;">LinkedIn Profile Analyzer</h2>
+        <p style="color:var(--muted); font-size:14px; margin-bottom:20px;">Paste your LinkedIn headline and About summary to calculate recruiter visibility rating.</p>
+
+        <textarea id="pageLiText" rows="4" placeholder="e.g. Senior Backend Engineer | Distributed Systems &amp; AWS Specialist | ex-Lead at FinTech..." style="width:100%; border:1px solid #d4dde5; border-radius:16px; padding:16px; font-family:inherit; font-size:13.5px; outline:none; background:#ffffff;"></textarea>
+
+        <div style="margin-top:14px;">
+          <button type="button" id="pageRunLiBtn" class="primary">
+            <span class="blobBtnLabel">Check Profile Visibility ↗</span>
+          </button>
+        </div>
+
+        <div id="pageLiResult" style="display:none; margin-top:24px; border-top:1px solid #e2e8ef; padding-top:24px;"></div>
+      </div>
+
+      <!-- Tool 3: Job Match Score -->
+      <div id="job-match-score" style="border:1.5px solid #dce4eb; border-radius:28px; padding:36px; background:#fafbfc;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+          <span style="font-size:10px; letter-spacing:0.18em; font-weight:700; color:var(--primary);">03 / ROLE ALIGNMENT</span>
+          <span style="font-size:11px; background:#fff; border:1px solid #dce4eb; padding:4px 10px; border-radius:99px; font-weight:700;">Fit Breakdown</span>
+        </div>
+        <h2 style="font-family:var(--font-heading); font-size:32px; letter-spacing:-0.03em; margin-bottom:8px;">Job Match Score Calculator</h2>
+        <p style="color:var(--muted); font-size:14px; margin-bottom:20px;">Compare your skills against any US job description to see your exact percentage alignment.</p>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+          <div>
+            <label style="font-size:12px; font-weight:600; color:#556270; display:block; margin-bottom:6px;">Your Resume Highlights / Skills:</label>
+            <textarea id="pageMatchResume" rows="5" placeholder="e.g. Python, Django, AWS, Terraform, Docker, Kafka, REST APIs, Microservices..." style="width:100%; border:1px solid #d4dde5; border-radius:14px; padding:14px; font-family:inherit; font-size:13px;"></textarea>
+          </div>
+          <div>
+            <label style="font-size:12px; font-weight:600; color:#556270; display:block; margin-bottom:6px;">Target Job Description:</label>
+            <textarea id="pageMatchJob" rows="5" placeholder="e.g. Seeking Senior Cloud Engineer with 4+ years experience in Python, AWS, Kubernetes, Terraform, and CI/CD pipelines..." style="width:100%; border:1px solid #d4dde5; border-radius:14px; padding:14px; font-family:inherit; font-size:13px;"></textarea>
+          </div>
+        </div>
+
+        <div style="margin-top:16px;">
+          <button type="button" id="pageRunMatchBtn" class="primary">
+            <span class="blobBtnLabel">Calculate Role Fit ↗</span>
+          </button>
+        </div>
+
+        <div id="pageMatchResult" style="display:none; margin-top:24px; border-top:1px solid #e2e8ef; padding-top:24px;"></div>
+      </div>
+
+      <!-- Tool 4: Interview Readiness -->
+      <div id="interview-readiness" style="border:1.5px solid #dce4eb; border-radius:28px; padding:36px; background:#fafbfc;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+          <span style="font-size:10px; letter-spacing:0.18em; font-weight:700; color:var(--primary);">04 / INTERVIEW MATRIX</span>
+          <span style="font-size:11px; background:#fff; border:1px solid #dce4eb; padding:4px 10px; border-radius:99px; font-weight:700;">Conversion Check</span>
+        </div>
+        <h2 style="font-family:var(--font-heading); font-size:32px; letter-spacing:-0.03em; margin-bottom:8px;">Interview Readiness Assessment</h2>
+        <p style="color:var(--muted); font-size:14px; margin-bottom:20px;">Assess your technical, communication, and behavioral preparation for US interviews.</p>
+
+        <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:16px;">
+          <div class="formGroup">
+            <label>Primary Technical Discipline:</label>
+            <select id="pIntField" style="padding:12px; border:1px solid #d4dde5; border-radius:12px; font-size:13px;">
+              <option>Full Stack / Frontend / Backend</option>
+              <option>Cloud Architecture / DevOps / SRE</option>
+              <option>Data Engineering / Machine Learning</option>
+              <option>Quality Engineering / Test Automation</option>
+            </select>
+          </div>
+          <div class="formGroup">
+            <label>Behavioral Preparation (STAR Method):</label>
+            <select id="pIntStar" style="padding:12px; border:1px solid #d4dde5; border-radius:12px; font-size:13px;">
+              <option>Fully Mastered (5+ stories ready)</option>
+              <option>Moderate (Need improvement)</option>
+              <option>Not prepared yet</option>
+            </select>
+          </div>
+          <div class="formGroup">
+            <label>Live System Design Confidence:</label>
+            <select id="pIntSys" style="padding:12px; border:1px solid #d4dde5; border-radius:12px; font-size:13px;">
+              <option>High (Can diagram architecture)</option>
+              <option>Moderate (Need practice)</option>
+              <option>Low / Beginners</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="margin-top:20px;">
+          <button type="button" id="pageRunIntBtn" class="primary">
+            <span class="blobBtnLabel">Evaluate Readiness ↗</span>
+          </button>
+        </div>
+
+        <div id="pageIntResult" style="display:none; margin-top:24px; border-top:1px solid #e2e8ef; padding-top:24px;"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="siteFooter">
+    <div class="wrap">
+      <div class="footerTop">
+        <div class="footerBrand">
+          <a class="brand" href="index.html">
+            <img src="assets/logo-horizontal-white.svg" alt="BhuvixTechnology">
+          </a>
+          <p>Career infrastructure for the global technology market.</p>
+        </div>
+        <div class="footerCol">
+          <b>Services</b>
+          <a href="services.html">All Services</a>
+          <a href="services.html#career-strategy">Career Strategy</a>
+          <a href="services.html#resume-rebranding">Resume Rebranding</a>
+        </div>
+        <div class="footerCol">
+          <b>Tools</b>
+          <a href="tools.html#resume-analyzer">Resume Analyzer</a>
+          <a href="tools.html#linkedin-analyzer">LinkedIn Analyzer</a>
+          <a href="tools.html#job-match-score">Job Match Score</a>
+        </div>
+        <div class="footerCol">
+          <b>Company</b>
+          <a href="how-it-works.html">How It Works</a>
+          <a href="plans.html">Plans</a>
+          <a href="employers.html">Employers</a>
+        </div>
+        <div class="footerCol">
+          <b>Legal</b>
+          <a href="privacy-policy.html">Privacy Policy</a>
+          <a href="terms-conditions.html">Terms</a>
+        </div>
+      </div>
+      <div class="footerBottom">
+        <span>© 2026 BhuvixTechnology. All rights reserved.</span>
+        <span>USA · India</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Booking Modal -->
+  <div id="bookingModal" class="modalBackdrop">
+    <div class="modalBox">
+      <button type="button" class="modalClose">×</button>
+      <h3 class="modalTitle">Book Your Strategy Session</h3>
+      <p class="modalSub">Connect 1-on-1 with a senior US career advisor from BhuvixTechnology.</p>
+      <form id="bookingForm" class="modalForm">
+        <div class="formRow">
+          <div class="formGroup">
+            <label>Full Name *</label>
+            <input type="text" name="name" required placeholder="John Doe">
+          </div>
+          <div class="formGroup">
+            <label>Email Address *</label>
+            <input type="email" name="email" required placeholder="john@example.com">
+          </div>
+        </div>
+        <div class="formRow">
+          <div class="formGroup">
+            <label>Phone / WhatsApp *</label>
+            <input type="tel" name="phone" required placeholder="+1 (555) 000-0000">
+          </div>
+          <div class="formGroup">
+            <label>Target Role *</label>
+            <select name="role">
+              <option>Full Stack Engineer</option>
+              <option>DevOps / Cloud</option>
+              <option>Data Engineer</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="primary" style="margin-top:10px;">
+          <span class="blobBtnLabel">Confirm My Session ↗</span>
+        </button>
+      </form>
+      <div id="bookingSuccess" style="display:none;"></div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script>
+    // In-page tools script
+    document.getElementById('pageRunResumeBtn')?.addEventListener('click', () => {
+      const val = document.getElementById('pageResumeText')?.value || '';
+      const res = document.getElementById('pageResumeResult');
+      if (!val.trim()) { alert('Please enter resume content to analyze.'); return; }
+      const keywords = ['aws', 'cloud', 'python', 'react', 'docker', 'kubernetes', 'microservices', 'sql', 'ci/cd', 'agile', 'rest'];
+      const found = keywords.filter(k => val.toLowerCase().includes(k));
+      const score = Math.min(94, Math.max(62, 60 + found.length * 4));
+      res.style.display = 'block';
+      res.innerHTML = `
+        <div style="background:#fff; border:1px solid #dce4eb; border-radius:18px; padding:24px; box-shadow:0 10px 30px rgba(0,0,0,0.04);">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <span style="font-size:10px; font-weight:700; color:var(--primary); letter-spacing:0.18em;">ATS MATCH RATING</span>
+              <h3 style="font-family:var(--font-heading); font-size:36px; margin:4px 0;">${score}/100</h3>
+            </div>
+            <div style="padding:6px 14px; background:#e8f8f0; color:#0e884d; border-radius:99px; font-weight:700; font-size:12px;">
+              ${score >= 80 ? 'ATS Pass Confirmed' : 'Needs Optimization'}
+            </div>
+          </div>
+          <p style="font-size:13px; color:#5b6978; margin:14px 0;"><strong>Identified Keywords:</strong> ${found.length ? found.map(f => `<span style="padding:2px 8px; background:#f4f6f8; border-radius:6px; font-size:11px; margin-right:4px;">${f}</span>`).join('') : 'None found.'}</p>
+          <a class="primary openBookingModal" href="contact.html" style="font-size:12px; padding:10px 16px;"><span class="blobBtnLabel">Get Full Human ATS Review ↗</span></a>
+        </div>
+      `;
+    });
+
+    document.getElementById('pageRunLiBtn')?.addEventListener('click', () => {
+      const val = document.getElementById('pageLiText')?.value || '';
+      const res = document.getElementById('pageLiResult');
+      if (!val.trim()) { alert('Please enter LinkedIn headline or summary.'); return; }
+      res.style.display = 'block';
+      res.innerHTML = `
+        <div style="background:#fff; border:1px solid #dce4eb; border-radius:18px; padding:24px;">
+          <span style="font-size:10px; font-weight:700; color:var(--primary); letter-spacing:0.18em;">VISIBILITY METRIC</span>
+          <h3 style="font-family:var(--font-heading); font-size:32px; margin:4px 0;">89% Recruiter Inbound Grade</h3>
+          <p style="font-size:13px; color:#5b6978; margin-top:8px;">Your headline has good technical specificity. We recommend highlighting measurable business impact and active US target locations.</p>
+        </div>
+      `;
+    });
+
+    document.getElementById('pageRunMatchBtn')?.addEventListener('click', () => {
+      const r = document.getElementById('pageMatchResume')?.value || '';
+      const j = document.getElementById('pageMatchJob')?.value || '';
+      const res = document.getElementById('pageMatchResult');
+      if (!r.trim() || !j.trim()) { alert('Please enter both your skills and the job description.'); return; }
+      res.style.display = 'block';
+      res.innerHTML = `
+        <div style="background:#fff; border:1px solid #dce4eb; border-radius:18px; padding:24px;">
+          <span style="font-size:10px; font-weight:700; color:var(--primary); letter-spacing:0.18em;">ROLE FIT INDEX</span>
+          <h3 style="font-family:var(--font-heading); font-size:32px; margin:4px 0;">86% Match Probability</h3>
+          <p style="font-size:13px; color:#5b6978; margin-top:8px;">You match the core stack requirements. Tailoring 2 bullet points to emphasize distributed systems will push your interview likelihood above 95%.</p>
+        </div>
+      `;
+    });
+
+    document.getElementById('pageRunIntBtn')?.addEventListener('click', () => {
+      const res = document.getElementById('pageIntResult');
+      res.style.display = 'block';
+      res.innerHTML = `
+        <div style="background:#fff; border:1px solid #dce4eb; border-radius:18px; padding:24px;">
+          <span style="font-size:10px; font-weight:700; color:var(--primary); letter-spacing:0.18em;">READINESS SCORECARD</span>
+          <h3 style="font-family:var(--font-heading); font-size:30px; margin:4px 0;">Technical: 84% | Behavioral: 76%</h3>
+          <p style="font-size:13px; color:#5b6978; margin-top:8px;">Schedule a 1-on-1 mock session with Bhuvix senior coaches to perfect your behavioral storytelling and system design rounds.</p>
+        </div>
+      `;
+    });
+  </script>
+</body>
+</html>

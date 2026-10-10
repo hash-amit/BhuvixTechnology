@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 50" fill="none">
+  <rect width="160" height="50" rx="8" fill="#ffffff" stroke="#d5dbe2" stroke-width="1.5"/>
+  <circle cx="25" cy="25" r="14" fill="#0d2c54"/>
+  <circle cx="25" cy="25" r="11" fill="none" stroke="#ffd21f" stroke-width="1.2"/>
+  <text x="25" y="28" font-family="sans-serif" font-size="8" font-weight="bold" fill="#fff" text-anchor="middle">DHS</text>
+  <text x="46" y="24" font-family="'Space Grotesk', sans-serif" font-size="12" font-weight="700" fill="#0d2c54">U.S. DHS</text>
+  <text x="46" y="36" font-family="'DM Sans', sans-serif" font-size="8" font-weight="500" fill="#606d7b">Compliance Assured</text>
+</svg>
