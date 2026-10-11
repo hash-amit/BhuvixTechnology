@@ -1,4 +1,7 @@
 // BhuvixTechnology Core Interactivity
+// Google Sheets Webhook Configuration:
+window.BHUVIX_GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbwMBmLbfgmL6VdRl85KIxSdaP-euPbP6ozZjstLpRCKiAG3t-5XAF7NO3PXGfw9pNoBWw/exec";
+
 document.addEventListener('DOMContentLoaded', () => {
   initMobileMenu();
   initHeroWordReveal();
@@ -182,25 +185,102 @@ function initBookingModal() {
   });
 
   if (form) {
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const name = form.querySelector('[name="name"]')?.value || "Candidate";
-      const email = form.querySelector('[name="email"]')?.value || "";
-      const slot = form.querySelector('[name="slot"]')?.value || "Tomorrow";
 
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalBtnHtml = submitBtn ? submitBtn.innerHTML : '<span class="blobBtnLabel">Confirm My Session ↗</span>';
+
+      const name = form.querySelector('[name="name"]')?.value?.trim() || "Candidate";
+      const email = form.querySelector('[name="email"]')?.value?.trim() || "";
+      const phone = form.querySelector('[name="phone"]')?.value?.trim() || "";
+      const role = form.querySelector('[name="role"]')?.value?.trim() || "Tech Role";
+      const experience = form.querySelector('[name="experience"]')?.value?.trim() || "";
+      const slot = form.querySelector('[name="slot"]')?.value?.trim() || "Earliest Available";
+      const notes = form.querySelector('[name="notes"]')?.value?.trim() || "";
+
+      // Show submitting state
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.style.opacity = '0.8';
+        submitBtn.innerHTML = '<span class="blobBtnLabel">Submitting Your Request...</span>';
+      }
+
+      const payload = {
+        name,
+        email,
+        phone,
+        role,
+        experience,
+        slot,
+        notes,
+        timestamp: new Date().toISOString()
+      };
+
+      // 1. Send data to Google Sheets Web App endpoint if configured
+      const googleSheetUrl = window.BHUVIX_GOOGLE_SHEET_URL || "https://script.google.com/macros/s/AKfycbz_placeholder/exec";
+      if (googleSheetUrl && !googleSheetUrl.includes('placeholder')) {
+        try {
+          const bodyParams = new URLSearchParams(payload);
+          await fetch(googleSheetUrl, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: bodyParams.toString()
+          });
+        } catch (err) {
+          console.warn('Google Sheet submission notice:', err);
+        }
+      }
+
+      // 2. Backup locally in localStorage so data is never lost
+      try {
+        const bookings = JSON.parse(localStorage.getItem('bhuvix_session_bookings') || '[]');
+        bookings.push(payload);
+        localStorage.setItem('bhuvix_session_bookings', JSON.stringify(bookings));
+      } catch (err) {}
+
+      // Reset button state
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.style.opacity = '1';
+        submitBtn.innerHTML = originalBtnHtml;
+      }
+
+      // 3. Display user-friendly success message
       form.style.display = 'none';
       if (successBox) {
         successBox.style.display = 'block';
         successBox.innerHTML = `
-          <div style="text-align:center; padding: 20px 0;">
-            <div style="font-size: 48px; margin-bottom: 12px;">🎉</div>
-            <h3 style="font-family: var(--font-heading); font-size: 24px; margin-bottom: 8px;">Consultation Confirmed!</h3>
-            <p style="color: var(--muted); font-size: 14px; margin-bottom: 18px;">Thank you, <strong>${name}</strong>. A calendar invite and consultation link have been sent to <strong>${email}</strong> for <strong>${slot}</strong>.</p>
-            <button type="button" class="primary closeAfterSuccess"><span class="blobBtnLabel">Close Window</span></button>
+          <div style="text-align:center; padding: 25px 12px;">
+            <div style="width: 68px; height: 68px; margin: 0 auto 16px; border-radius: 50%; background: rgba(124, 58, 237, 0.1); border: 2px solid var(--primary); display: flex; align-items: center; justify-content: center; font-size: 32px; color: var(--primary);">
+              ✓
+            </div>
+            <h3 style="font-family: var(--font-heading); font-size: 24px; font-weight: 800; color: var(--navy); margin-bottom: 10px;">
+              Request Submitted Successfully!
+            </h3>
+            <p style="color: var(--muted); font-size: 15px; line-height: 1.6; max-width: 440px; margin: 0 auto 18px;">
+              Thank you, <strong>${name}</strong>! Your strategy session request is confirmed. Our team will contact you shortly via phone or email.
+            </p>
+            <div style="background: rgba(124, 58, 237, 0.05); border: 1px solid rgba(124, 58, 237, 0.16); border-radius: 14px; padding: 14px 18px; margin-bottom: 22px; text-align: left; font-size: 14px; color: var(--text);">
+              ${slot ? `<p style="margin: 0 0 6px; color: var(--text); font-size: 14px;">📅 Preferred Slot: <strong>${slot}</strong></p>` : ''}
+              ${role ? `<p style="margin: 0; color: var(--muted); font-size: 13px;">🎯 Target Role: <strong>${role}</strong></p>` : ''}
+            </div>
+            <button type="button" class="primary closeAfterSuccess" style="padding: 12px 32px; border-radius: 12px; font-weight: 700; width: auto; display: inline-flex;">
+              <span class="blobBtnLabel">Close Window</span>
+            </button>
           </div>
         `;
+
         successBox.querySelector('.closeAfterSuccess')?.addEventListener('click', () => {
           modal.classList.remove('open');
+          setTimeout(() => {
+            form.reset();
+            form.style.display = 'flex';
+            successBox.style.display = 'none';
+          }, 300);
         });
       }
     });
