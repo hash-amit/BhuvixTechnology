@@ -1,23 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 :root {
-  --bg: #f7f6f2;
+  --bg: #faf9ff; /* Pristine Lavender Mist: Clean, luxury, breathable canvas */
   --paper: #ffffff;
-  --ink: #070b12;
-  --muted: #5a6470;
-  --line: rgba(7, 11, 18, 0.1);
-  --cyan: #ff6b2c;
-  --primary: #ff6b2c;
-  --primary-hover: #ff540a;
-  --accent: #ffd21f;
-  --orange: #ff6b2c;
-  --yellow: #ffd21f;
-  --soft: #f7f6f2;
-  --ice: #fff2ea;
-  --navy: #090d16;
-  --navypanel: #111726;
-  --navyline: #1e2638;
-  --navytext: #9aa5b6;
+  --ink: #0d0b1e; /* Deep Cosmic Obsidian: Ultra-sharp dark text */
+  --muted: #645f7a; /* Elegant Slate Violet for secondary copy */
+  --line: rgba(13, 11, 30, 0.08);
+  --cyan: #7c3aed;
+  --primary: #7c3aed; /* Royal Cyber Violet */
+  --primary-hover: #6d28d9;
+  --accent: #a855f7; /* Luminous Orchid */
+  --teal: #a855f7;
+  --blue: #6366f1; /* Electric Indigo */
+  --orange: #7c3aed;
+  --yellow: #a855f7;
+  --soft: #f4f2ff; /* Soft lavender surface */
+  --ice: #f3e8ff; /* Soft violet mist for card highlights */
+  --navy: #0d0b1e; /* Deep Cosmic Midnight */
+  --navypanel: #14102e;
+  --navyline: #241d4c;
+  --navytext: #a79fc7;
   --radius-sm: 10px;
   --radius-md: 18px;
   --radius-lg: 28px;
@@ -188,27 +190,27 @@ button {
   letter-spacing: 0.15em;
   font-weight: 700;
   padding: 3px 6px;
-  background: rgba(255, 107, 44, 0.1);
+  background: rgba(124, 58, 237, 0.1);
   color: var(--primary);
   border-radius: 6px;
 }
 
-/* Blob Buttons */
+/* Primary & CTA Buttons (Royal Cyber Violet) */
 .navcta, .primary {
   position: relative;
   overflow: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: var(--yellow);
-  color: #070b12;
+  background: linear-gradient(135deg, #7c3aed 0%, #9333ea 100%);
+  color: #ffffff;
   font-weight: 700;
   font-size: 13px;
   border-radius: 14px;
   padding: 12px 18px;
-  border: none;
-  box-shadow: 0 4px 15px rgba(255, 210, 31, 0.35);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 18px rgba(124, 58, 237, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
   z-index: 1;
 }
 
@@ -219,7 +221,8 @@ button {
 
 .navcta:hover, .primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(255, 107, 44, 0.4);
+  filter: brightness(1.1);
+  box-shadow: 0 8px 28px rgba(124, 58, 237, 0.5);
 }
 
 .blobBtnLabel {
@@ -252,7 +255,7 @@ button {
   top: -40%;
   width: 28%;
   height: 180%;
-  background: var(--orange);
+  background: var(--primary-hover);
   border-radius: 100%;
   transform: translate3d(0, 150%, 0) scale(1.4);
   transition: transform 0.45s ease;
@@ -398,7 +401,7 @@ button {
   right: -240px;
   top: -100px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 107, 44, 0.18), rgba(255, 210, 31, 0.08) 40%, transparent 70%);
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.18), rgba(168, 85, 247, 0.08) 40%, transparent 70%);
   animation: floatOrb 10s ease-in-out infinite;
   pointer-events: none;
 }
@@ -410,7 +413,7 @@ button {
   left: -260px;
   bottom: -180px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 107, 44, 0.14), transparent 68%);
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.14), transparent 68%);
   animation: floatOrb 14s ease-in-out infinite reverse;
   pointer-events: none;
 }
@@ -530,7 +533,7 @@ h1 {
 }
 
 .grad {
-  background: linear-gradient(95deg, #070b12 0%, #ff6b2c 50%, #ffd21f 100%);
+  background: linear-gradient(95deg, #0d0b1e 0%, #7c3aed 55%, #c084fc 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -592,8 +595,8 @@ h1 {
   width: 440px;
   height: 440px;
   border-radius: 50%;
-  background: radial-gradient(circle, #ffffff 20%, #fef3ec 55%, transparent 72%);
-  box-shadow: 0 40px 90px rgba(255, 107, 44, 0.12);
+  background: radial-gradient(circle, #ffffff 20%, #f3e8ff 55%, transparent 72%);
+  box-shadow: 0 40px 90px rgba(124, 58, 237, 0.12);
   position: absolute;
 }
 
@@ -601,7 +604,7 @@ h1 {
   position: absolute;
   width: 520px;
   height: 520px;
-  border: 1px solid rgba(255, 107, 44, 0.22);
+  border: 1px solid rgba(124, 58, 237, 0.22);
   border-radius: 50%;
   transform: rotateX(68deg) rotate(-20deg);
   animation: orbRotate 18s linear infinite;
@@ -623,7 +626,7 @@ h1 {
   position: absolute;
   width: 380px;
   height: 380px;
-  border: 1px dashed rgba(255, 210, 31, 0.35);
+  border: 1px dashed rgba(168, 85, 247, 0.35);
   border-radius: 50%;
   transform: rotateY(65deg);
   animation: orbRotate2 14s linear infinite reverse;
@@ -644,8 +647,8 @@ h1 {
   height: 170px;
   border-radius: 40px;
   background: #ffffff;
-  border: 1.5px solid rgba(255, 107, 44, 0.3);
-  box-shadow: 0 30px 70px rgba(255, 107, 44, 0.2);
+  border: 1.5px solid rgba(124, 58, 237, 0.3);
+  box-shadow: 0 30px 70px rgba(124, 58, 237, 0.2);
   display: grid;
   place-items: center;
   animation: floatLogo 5s ease-in-out infinite;
@@ -688,7 +691,7 @@ h1 {
 
 .heroFeature:hover {
   transform: translateY(-5px) scale(1.02);
-  box-shadow: 0 25px 60px rgba(255, 107, 44, 0.18);
+  box-shadow: 0 25px 60px rgba(124, 58, 237, 0.18);
   border-color: var(--primary);
 }
 
@@ -703,8 +706,8 @@ h1 {
   border-radius: 50%;
   display: grid;
   place-items: center;
-  background: radial-gradient(circle, rgba(255, 107, 44, 0.15), #ffffff);
-  border: 1px solid rgba(255, 107, 44, 0.35);
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.15), #ffffff);
+  border: 1px solid rgba(124, 58, 237, 0.35);
   color: var(--primary);
   font-family: var(--font-heading);
   font-weight: 700;
@@ -804,7 +807,7 @@ h1 {
 .audienceCard:hover {
   transform: translateY(-8px);
   box-shadow: 0 25px 65px rgba(16, 24, 40, 0.09);
-  border-color: rgba(255, 107, 44, 0.4);
+  border-color: rgba(124, 58, 237, 0.4);
 }
 
 .audienceCard > span {
@@ -868,7 +871,7 @@ h1 {
 
 /* Audience Split Strip */
 .audienceStrip {
-  background: #090d16;
+  background: #0d0b1e;
   color: #ffffff;
   padding: 30px 0;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -1002,7 +1005,7 @@ h1 {
   display: block;
   height: 100%;
   width: 84%;
-  background: linear-gradient(90deg, #ff6b2c, #ffd21f);
+  background: linear-gradient(90deg, #7c3aed, #a855f7);
   border-radius: 99px;
   transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -1027,7 +1030,7 @@ h1 {
   position: absolute;
   width: 320px;
   height: 320px;
-  border: 1px solid rgba(255, 107, 44, 0.15);
+  border: 1px solid rgba(124, 58, 237, 0.15);
   border-radius: 50%;
 }
 
@@ -1036,7 +1039,7 @@ h1 {
   position: absolute;
   width: 220px;
   height: 220px;
-  border: 1px dashed rgba(255, 107, 44, 0.25);
+  border: 1px dashed rgba(124, 58, 237, 0.25);
   border-radius: 50%;
 }
 
@@ -1044,14 +1047,14 @@ h1 {
   width: 150px;
   height: 150px;
   border-radius: 50%;
-  background: radial-gradient(circle, #ffffff, #fff3eb);
-  border: 1.5px solid rgba(255, 107, 44, 0.35);
+  background: radial-gradient(circle, #ffffff, #f3e8ff);
+  border: 1.5px solid rgba(124, 58, 237, 0.35);
   display: grid;
   place-items: center;
   text-align: center;
   position: relative;
   z-index: 3;
-  box-shadow: 0 0 70px rgba(255, 107, 44, 0.25);
+  box-shadow: 0 0 70px rgba(124, 58, 237, 0.25);
 }
 
 .coreLabel {
@@ -1104,7 +1107,7 @@ h1 {
 .signalMetric:hover, .signalMetric.active {
   border-color: var(--primary);
   background: #ffffff;
-  box-shadow: 0 12px 30px rgba(255, 107, 44, 0.1);
+  box-shadow: 0 12px 30px rgba(124, 58, 237, 0.1);
   transform: translateX(-4px);
 }
 
@@ -1157,7 +1160,7 @@ h1 {
 .signalMetric > i u {
   display: block;
   height: 100%;
-  background: linear-gradient(90deg, #ff6b2c, #ffd21f);
+  background: linear-gradient(90deg, #7c3aed, #a855f7);
   border-radius: 99px;
   text-decoration: none;
 }
@@ -1278,12 +1281,12 @@ h1 {
   width: 150px;
   height: 150px;
   border-radius: 50%;
-  background: radial-gradient(circle, #ffffff 40%, #fef3eb);
-  border: 1.5px solid rgba(255, 107, 44, 0.4);
+  background: radial-gradient(circle, #ffffff 40%, #f3e8ff);
+  border: 1.5px solid rgba(124, 58, 237, 0.4);
   display: grid;
   place-items: center;
   position: relative;
-  box-shadow: 0 25px 75px rgba(255, 107, 44, 0.2);
+  box-shadow: 0 25px 75px rgba(124, 58, 237, 0.2);
 }
 
 .bhuvixCore img {
@@ -1294,7 +1297,7 @@ h1 {
 .coreRing {
   position: absolute;
   inset: -10px;
-  border: 1px dashed rgba(255, 107, 44, 0.4);
+  border: 1px dashed rgba(124, 58, 237, 0.4);
   border-radius: 50%;
   animation: coreSpin 14s linear infinite;
 }
@@ -1311,8 +1314,8 @@ h1 {
 
 .connectorLine {
   height: 2px;
-  background: linear-gradient(90deg, #ff6b2c, #ffd21f);
-  box-shadow: 0 0 12px rgba(255, 107, 44, 0.3);
+  background: linear-gradient(90deg, #7c3aed, #a855f7);
+  box-shadow: 0 0 12px rgba(124, 58, 237, 0.3);
 }
 
 .flowTag {
@@ -1428,7 +1431,7 @@ h1 {
 .card:hover {
   transform: translateY(-8px);
   box-shadow: 0 30px 70px rgba(16, 24, 40, 0.09);
-  border-color: rgba(255, 107, 44, 0.4);
+  border-color: rgba(124, 58, 237, 0.4);
 }
 
 .card .num {
@@ -1504,8 +1507,8 @@ h1 {
 }
 
 .serviceLight.featured {
-  background: linear-gradient(145deg, #ffffff, #fff7f2);
-  border-color: rgba(255, 107, 44, 0.3);
+  background: linear-gradient(145deg, #ffffff, #f3e8ff);
+  border-color: rgba(124, 58, 237, 0.3);
 }
 
 .serviceNo {
@@ -1574,7 +1577,7 @@ h1 {
   min-height: 380px;
   border: 1px solid #1e2638;
   border-radius: 28px;
-  background: #090d16;
+  background: #0d0b1e;
   color: #ffffff;
   padding: 32px;
   position: relative;
@@ -1586,7 +1589,7 @@ h1 {
 
 .service:hover {
   transform: translateY(-8px);
-  border-color: rgba(255, 107, 44, 0.6);
+  border-color: rgba(124, 58, 237, 0.6);
   box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5);
 }
 
@@ -1844,7 +1847,7 @@ h1 {
   border-radius: 50%;
   display: grid;
   place-items: center;
-  background: linear-gradient(135deg, #ffd21f, #ff6b2c);
+  background: linear-gradient(135deg, #a855f7, #7c3aed);
   color: #ffffff;
   font-family: var(--font-heading);
   font-weight: 700;
@@ -1919,7 +1922,7 @@ h1 {
 }
 
 .supportCard.featuredSupport {
-  background: #090d16;
+  background: #0d0b1e;
   color: #ffffff;
   border-color: #242e42;
   transform: translateY(-10px);
@@ -2057,7 +2060,7 @@ details p {
    OFFICES SHOWCASE (DAY/NIGHT ANIMATION)
    ========================================================================== */
 .officesShowcase {
-  background: #090d16;
+  background: #0d0b1e;
   color: #ffffff;
   padding: 120px 0;
   position: relative;
@@ -2067,7 +2070,7 @@ details p {
 .officesAtmosphere {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 30%, rgba(255, 107, 44, 0.08), transparent 60%);
+  background: radial-gradient(circle at 50% 30%, rgba(124, 58, 237, 0.08), transparent 60%);
   pointer-events: none;
 }
 
@@ -2224,7 +2227,7 @@ details p {
 
 .liveClock {
   font-family: var(--font-heading);
-  color: #ffd21f;
+  color: #a855f7;
   font-weight: 700;
 }
 
@@ -2296,7 +2299,7 @@ details p {
 .final {
   padding: 160px 0;
   text-align: center;
-  background: #090d16;
+  background: #0d0b1e;
   color: #ffffff;
   position: relative;
   overflow: hidden;
@@ -2311,11 +2314,11 @@ details p {
   top: 10%;
   transform: translate(-50%, -50%);
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 107, 44, 0.22), transparent 65%);
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.22), transparent 65%);
 }
 
 .final .kicker {
-  color: #ff935f;
+  color: #a855f7;
 }
 
 .final .big {
@@ -2329,7 +2332,7 @@ details p {
    FOOTER
    ========================================================================== */
 .siteFooter {
-  background: #050811;
+  background: #0d0b1e;
   color: #ffffff;
   padding: 90px 0 40px;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
@@ -2595,7 +2598,7 @@ details p {
 
 .formGroup input:focus, .formGroup select:focus, .formGroup textarea:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(255, 107, 44, 0.15);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
 }
 
 /* Page Header Subpages */
