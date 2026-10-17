@@ -201,7 +201,13 @@
             body: new URLSearchParams({ action: 'send_email_otp', email })
           });
           const res = await resp.json();
-          if (emailNotice) emailNotice.textContent = `Verification code sent to ${email}`;
+          if (res.message === "OTP sent") {
+            if (emailNotice) emailNotice.textContent = `Verification code sent to ${email}`;
+          } else {
+            // Apps script has not been updated with Code.gs yet
+            console.warn("Apps Script returned non-OTP response. Using demo code fallback:", res);
+            simulateEmailOtp(email);
+          }
         } catch (e) {
           console.warn("Using simulated Email OTP fallback:", e);
           simulateEmailOtp(email);
@@ -224,7 +230,7 @@
       const demoCode = Math.floor(100000 + Math.random() * 900000).toString();
       window.bhuvixAuth.simulatedEmailOtp = demoCode;
       if (emailNotice) {
-        emailNotice.innerHTML = `Demo Mode: Verification code is <strong style="color:var(--primary);">${demoCode}</strong> (Or enter 123456)`;
+        emailNotice.innerHTML = `Demo Mode: Test code is <strong style="color:var(--primary);">${demoCode}</strong> or enter <strong>123456</strong> (Update Code.gs in Google Sheets to receive live emails).`;
       }
       console.log(`[Bhuvix Demo] Email OTP for ${email}: ${demoCode}`);
     }
@@ -313,16 +319,23 @@
     }
 
     async function handleSendPhoneOtp() {
-      let phone = phoneInput ? phoneInput.value.trim() : '';
-      if (!phone || phone.length < 8) {
-        alert("Please enter a valid phone number with country code (e.g. +91 9876543210 or +1 555 123 4567).");
+      let rawPhone = phoneInput ? phoneInput.value.trim() : '';
+      if (!rawPhone || rawPhone.length < 8) {
+        alert("Please enter a valid phone number (e.g. 9643615136 or +91 9643615136).");
         if (phoneInput) phoneInput.focus();
         return;
       }
 
-      // Format with + if missing
+      // Auto-prefix with +91 if 10-digit number is entered without country code
+      let phone = rawPhone;
+      const pureDigits = phone.replace(/\D/g, '');
       if (!phone.startsWith('+')) {
-        phone = '+' + phone.replace(/\D/g, '');
+        if (pureDigits.length === 10) {
+          phone = '+91' + pureDigits;
+        } else {
+          phone = '+' + pureDigits;
+        }
+        if (phoneInput) phoneInput.value = phone;
       }
 
       if (btnSendPhoneOtp) {
@@ -330,12 +343,20 @@
         btnSendPhoneOtp.textContent = "Sending...";
       }
 
+      const isFileProtocol = window.location.protocol === 'file:';
       const hasLiveFirebase = typeof firebase !== 'undefined' && 
                               firebase.auth && 
                               window.BHUVIX_FIREBASE_CONFIG.apiKey && 
                               !window.BHUVIX_FIREBASE_CONFIG.apiKey.includes("PASTE_YOUR");
 
-      if (hasLiveFirebase) {
+      if (isFileProtocol) {
+        // file:/// protocol blocks reCAPTCHA cross-origin security
+        if (btnSendPhoneOtp) {
+          btnSendPhoneOtp.disabled = false;
+          btnSendPhoneOtp.textContent = "Send OTP";
+        }
+        simulatePhoneOtp(phone, true);
+      } else if (hasLiveFirebase) {
         try {
           if (!window.recaptchaVerifier) {
             window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
@@ -351,11 +372,15 @@
           if (phoneNotice) phoneNotice.textContent = `SMS sent to ${phone}`;
         } catch (err) {
           console.error("[Firebase Auth Error]:", err);
+          if (btnSendPhoneOtp) {
+            btnSendPhoneOtp.disabled = false;
+            btnSendPhoneOtp.textContent = "Send OTP";
+          }
           alert("Firebase SMS Notice: " + (err.message || "Failed to send SMS. Switching to test verification code 123456."));
-          simulatePhoneOtp(phone);
+          simulatePhoneOtp(phone, false);
         }
       } else {
-        simulatePhoneOtp(phone);
+        simulatePhoneOtp(phone, false);
       }
 
       if (phoneOtpBox) phoneOtpBox.style.display = 'block';
@@ -367,9 +392,13 @@
       if (phoneOtpInput) phoneOtpInput.focus();
     }
 
-    function simulatePhoneOtp(phone) {
+    function simulatePhoneOtp(phone, isFileProto) {
       if (phoneNotice) {
-        phoneNotice.innerHTML = `Demo Mode: Test code is <strong style="color:var(--primary);">123456</strong> (Connect Firebase to receive live SMS)`;
+        if (isFileProto) {
+          phoneNotice.innerHTML = `Local Testing: Google blocks live SMS on <code>file://</code> paths. Enter code <strong style="color:var(--primary);">123456</strong> (or test on <a href="https://bhuvixtechnology.com" target="_blank" style="color:var(--primary);text-decoration:underline;">live website</a> for real SMS).`;
+        } else {
+          phoneNotice.innerHTML = `Test code is <strong style="color:var(--primary);">123456</strong> (Check Firebase configuration to receive live SMS)`;
+        }
       }
       console.log(`[Bhuvix Demo] Phone verification ready for ${phone}. Test OTP: 123456`);
     }
