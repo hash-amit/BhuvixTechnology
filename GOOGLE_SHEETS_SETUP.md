@@ -108,6 +108,11 @@ function doPost(e) {
       .setMimeType(ContentService.MimeType.JSON);
   }
 }
+
+// Run this once inside the Apps Script editor to grant permission for Gmail sending:
+function authorizeGmail() {
+  GmailApp.getRemainingDailyQuota();
+}
 ```
 
 3. Click the **Save** icon (disk icon).
