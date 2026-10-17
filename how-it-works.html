@@ -271,26 +271,28 @@
           </div>
         </div>
 
-        <!-- Verified Phone Row -->
-        <div class="formGroup">
-          <div class="fieldLabelRow">
-            <label>Phone / WhatsApp (with country code) *</label>
-            <span class="verifyStatus" id="phoneStatusBadge">Unverified</span>
+        <!-- Country & Phone Validation Row -->
+        <div class="formRow">
+          <div class="formGroup">
+            <label>Country *</label>
+            <select name="country" required>
+              <option value="US" selected>🇺🇸 United States (+1)</option>
+              <option value="CA">🇨🇦 Canada (+1)</option>
+              <option value="GB">🇬🇧 United Kingdom (+44)</option>
+              <option value="AE">🇦🇪 United Arab Emirates (+971)</option>
+              <option value="IN">🇮🇳 India (+91)</option>
+              <option value="OTHER">🌍 Other International</option>
+            </select>
           </div>
-          <div class="inputWithAction">
-            <input type="tel" name="phone" required placeholder="+1 (555) 000-0000 or +91 9876543210">
-            <button type="button" class="btnOtpTrigger" id="btnSendPhoneOtp">Send OTP</button>
-          </div>
-          <div id="recaptcha-container"></div>
-          <div class="otpVerifyBox" id="phoneOtpBox" style="display:none;">
-            <div class="otpInputRow">
-              <input type="text" id="phoneOtpInput" maxlength="6" placeholder="6-digit SMS code" autocomplete="one-time-code">
-              <button type="button" class="btnConfirmOtp" id="btnConfirmPhoneOtp">Confirm</button>
+          <div class="formGroup">
+            <div class="fieldLabelRow">
+              <label>Phone / WhatsApp *</label>
+              <span class="verifyStatus" id="phoneStatusBadge">Required</span>
             </div>
-            <div class="otpMetaRow">
-              <span id="phoneOtpNotice">SMS sent to your phone</span>
-              <button type="button" class="btnResend" id="btnResendPhoneOtp" disabled>Resend (<span id="phoneTimer">45</span>s)</button>
+            <div class="inputWithAction">
+              <input type="tel" name="phone" required placeholder="+1 (555) 000-0000">
             </div>
+            <div id="phoneFormatHelp" style="font-size:11px; color:#64748b; margin-top:2px;">Format: 10-digit US number (e.g. +1 555 123 4567)</div>
           </div>
         </div>
 
@@ -325,15 +327,13 @@
         </button>
 
         <div id="verifyPromptNotice" class="verifyPromptNotice">
-          🔒 Please verify your <strong>Email & Phone</strong> with OTP before submitting.
+          🔒 Please verify your <strong>Email with OTP</strong> and enter a valid Phone number.
         </div>
       </form>
       <div id="bookingSuccess" style="display:none;"></div>
     </div>
   </div>
 
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
   <script src="js/auth-otp.js"></script>
   <script src="js/main.js"></script>
 </body>

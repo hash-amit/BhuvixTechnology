@@ -188,9 +188,9 @@ function initBookingModal() {
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      // Enforce OTP verification before allowing submission
-      if (window.bhuvixAuth && (!window.bhuvixAuth.emailVerified || !window.bhuvixAuth.phoneVerified)) {
-        alert("Please verify both your Email and Phone number with OTP before confirming your session.");
+      // Enforce Email OTP verification and Phone validation before allowing submission
+      if (window.bhuvixAuth && (!window.bhuvixAuth.emailVerified || !window.bhuvixAuth.phoneValid)) {
+        alert("Please verify your Email with OTP and enter a valid Phone number before confirming your session.");
         return;
       }
 
@@ -199,6 +199,7 @@ function initBookingModal() {
 
       const name = form.querySelector('[name="name"]')?.value?.trim() || "Candidate";
       const email = form.querySelector('[name="email"]')?.value?.trim() || "";
+      const country = form.querySelector('[name="country"]')?.value?.trim() || "US";
       const phone = form.querySelector('[name="phone"]')?.value?.trim() || "";
       const role = form.querySelector('[name="role"]')?.value?.trim() || "Tech Role";
       const experience = form.querySelector('[name="experience"]')?.value?.trim() || "";
@@ -215,6 +216,7 @@ function initBookingModal() {
       const payload = {
         name,
         email,
+        country,
         phone,
         role,
         experience,
