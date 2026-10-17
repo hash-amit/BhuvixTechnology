@@ -1,57 +1,77 @@
 # 📊 Google Sheets Integration for "Book Your Strategy Session"
 
-Follow these simple steps (takes ~1 minute) to save all candidate session bookings directly into your Google Sheet in real-time.
+Follow these simple steps to save all candidate session bookings directly into your Google Sheet in real-time.
 
 ---
 
-### Step 1: Create a Google Sheet
-1. Open [Google Sheets](https://sheets.new) and create a new blank spreadsheet.
-2. Name it: **Bhuvix Technology — Strategy Sessions**
-
----
-
-### Step 2: Add the Google Apps Script
-1. In your Google Sheet, click **Extensions** in the top menu, then select **Apps Script**.
-2. Delete any code inside `Code.gs` and paste the following simple script:
+### Step 1: Add / Update Google Apps Script
+1. In your Google Sheet, click **Extensions** > **Apps Script**.
+2. Replace all code in `Code.gs` with this updated script:
 
 ```javascript
 function doPost(e) {
   try {
-    var data = e.parameter;
+    var data = e.parameter || {};
     
     // Parse JSON if sent as payload
     if (e.postData && e.postData.contents) {
       try {
-        data = JSON.parse(e.postData.contents);
+        var parsed = JSON.parse(e.postData.contents);
+        for (var key in parsed) {
+          data[key] = parsed[key];
+        }
       } catch(err) {}
     }
     
     var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
     
-    // Auto-create styled header row on first submission
+    var expectedHeaders = [
+      "Timestamp",
+      "Full Name",
+      "Email Address",
+      "Country",
+      "Phone / WhatsApp",
+      "Target Tech Role",
+      "Years of Experience",
+      "Preferred Time Slot",
+      "Career Goals / Notes"
+    ];
+
+    // If sheet is empty, create headers
     if (sheet.getLastRow() === 0) {
-      sheet.appendRow([
-        "Timestamp",
-        "Full Name",
-        "Email Address",
-        "Country",
-        "Phone / WhatsApp",
-        "Target Tech Role",
-        "Years of Experience",
-        "Preferred Time Slot",
-        "Career Goals / Notes"
-      ]);
-      sheet.getRange(1, 1, 1, 9).setFontWeight("bold").setBackground("#7C3AED").setFontColor("#FFFFFF");
+      sheet.appendRow(expectedHeaders);
+      sheet.getRange(1, 1, 1, expectedHeaders.length)
+           .setFontWeight("bold")
+           .setBackground("#7C3AED")
+           .setFontColor("#FFFFFF");
       sheet.setFrozenRows(1);
+    } else {
+      // Auto-detect if "Country" column is missing from existing sheet
+      var headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+      var hasCountry = headers.some(function(h) { 
+        return h.toString().toLowerCase().indexOf("country") !== -1; 
+      });
+      
+      if (!hasCountry) {
+        // Automatically insert "Country" column between Email Address and Phone / WhatsApp
+        sheet.insertColumnAfter(3);
+        sheet.getRange(1, 4).setValue("Country").setFontWeight("bold").setBackground("#7C3AED").setFontColor("#FFFFFF");
+      }
     }
     
-    // Append the candidate data row
+    // Ensure phone is stored as text so leading '+' doesn't trigger formula #ERROR!
+    var phone = (data.phone || "").toString().trim();
+    if (phone.charAt(0) === '+') {
+      phone = "'" + phone;
+    }
+
+    // Append the candidate data row in exact column order
     sheet.appendRow([
       new Date(),
       data.name || "",
       data.email || "",
-      data.country || "",
-      data.phone || "",
+      data.country || "US",
+      phone,
       data.role || "",
       data.experience || "",
       data.slot || "",
@@ -71,23 +91,14 @@ function doPost(e) {
 
 ---
 
-### Step 3: Deploy as a Web App
-1. At the top right of the Apps Script window, click the blue **Deploy** button > **New deployment**.
-2. Click the gear icon (Select type) > choose **Web app**.
-3. Fill in the deployment details:
-   - **Description**: `Bhuvix Booking Webhook`
-   - **Execute as**: `Me`
-   - **Who has access**: `Anyone` *(Crucial so candidate bookings are accepted)*
+### Step 2: Deploy New Version
+1. Click **Deploy** > **Manage deployments**.
+2. Click the **Pencil (Edit)** icon next to your active deployment.
+3. In the **Version** dropdown, select **New version**.
 4. Click **Deploy**.
-5. Click **Authorize access** (choose your Google account, click *Advanced* > *Go to Bhuvix Booking Webhook (unsafe)* > *Allow*).
-6. Copy the **Web app URL** (looks like `https://script.google.com/macros/s/AKfycb.../exec`).
 
 ---
 
-### Step 4: Paste your URL in `js/main.js`
-Open `js/main.js` line 4 and paste your URL:
-```javascript
-window.BHUVIX_GOOGLE_SHEET_URL = "https://script.google.com/macros/s/YOUR_ACTUAL_ID/exec";
-```
-
-That's it! Every time a visitor submits the "Book Your Strategy Session" modal anywhere on your website, a new row will instantly appear in your Google Sheet, and the candidate will receive a confirmation screen.
+### Step 3: Clean up Row 9 in Google Sheets
+In your Google Sheet, simply right-click row `9` (the test row that had shifted columns) and click **Delete row**.
+Now submit the booking form from your website again — each field will land in its exact corresponding column!
