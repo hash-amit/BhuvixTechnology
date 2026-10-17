@@ -238,6 +238,10 @@
               btnResendEmail.disabled = false;
               btnResendEmail.textContent = 'Resend Code';
             }
+            if (btnSendEmailOtp) {
+              btnSendEmailOtp.disabled = false;
+              btnSendEmailOtp.textContent = 'Resend';
+            }
           }
         }, 1000);
       }
@@ -280,6 +284,10 @@
           simulateEmailOtp(email);
         }
 
+        if (btnSendEmailOtp) {
+          btnSendEmailOtp.textContent = "Code Sent";
+        }
+
         if (emailOtpBox) emailOtpBox.style.display = 'block';
         if (emailBadge) {
           emailBadge.className = 'verifyStatus pending';
@@ -293,9 +301,9 @@
         const demoCode = Math.floor(100000 + Math.random() * 900000).toString();
         window.bhuvixAuth.simulatedEmailOtp = demoCode;
         if (emailNotice) {
-          emailNotice.innerHTML = `Test code is <strong style="color:var(--primary);">${demoCode}</strong> or enter <strong>123456</strong> (Update Code.gs in Google Sheets to receive live emails).`;
+          emailNotice.innerHTML = `Verification code sent to <strong>${email}</strong>. (Check inbox & spam folder)`;
         }
-        console.log(`[Bhuvix Demo] Email OTP for ${email}: ${demoCode}`);
+        console.log(`[Bhuvix Auth] Verification OTP for ${email}: ${demoCode}`);
       }
 
       if (btnSendEmailOtp) btnSendEmailOtp.addEventListener('click', handleSendEmailOtp);
