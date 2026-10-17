@@ -1326,19 +1326,53 @@
             <input type="text" name="name" required placeholder="John Doe">
           </div>
           <div class="formGroup">
-            <label>Email Address *</label>
-            <input type="email" name="email" required placeholder="john@example.com">
+            <label>Target Tech Role *</label>
+            <input type="text" name="role" required placeholder="e.g. Full Stack / Software Engineer">
           </div>
         </div>
 
-        <div class="formRow">
-          <div class="formGroup">
-            <label>Phone / WhatsApp *</label>
-            <input type="tel" name="phone" required placeholder="+1 (555) 000-0000">
+        <!-- Verified Email Row -->
+        <div class="formGroup">
+          <div class="fieldLabelRow">
+            <label>Email Address *</label>
+            <span class="verifyStatus" id="emailStatusBadge">Unverified</span>
           </div>
-          <div class="formGroup">
-            <label>Target Tech Role *</label>
-            <input type="text" name="role" required placeholder="e.g. Full Stack / Software Engineer">
+          <div class="inputWithAction">
+            <input type="email" name="email" required placeholder="john@example.com">
+            <button type="button" class="btnOtpTrigger" id="btnSendEmailOtp">Verify</button>
+          </div>
+          <div class="otpVerifyBox" id="emailOtpBox" style="display:none;">
+            <div class="otpInputRow">
+              <input type="text" id="emailOtpInput" maxlength="6" placeholder="6-digit OTP" autocomplete="one-time-code">
+              <button type="button" class="btnConfirmOtp" id="btnConfirmEmailOtp">Confirm</button>
+            </div>
+            <div class="otpMetaRow">
+              <span id="emailOtpNotice">Code sent to your email</span>
+              <button type="button" class="btnResend" id="btnResendEmailOtp" disabled>Resend (<span id="emailTimer">45</span>s)</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Verified Phone Row -->
+        <div class="formGroup">
+          <div class="fieldLabelRow">
+            <label>Phone / WhatsApp (with country code) *</label>
+            <span class="verifyStatus" id="phoneStatusBadge">Unverified</span>
+          </div>
+          <div class="inputWithAction">
+            <input type="tel" name="phone" required placeholder="+1 (555) 000-0000 or +91 9876543210">
+            <button type="button" class="btnOtpTrigger" id="btnSendPhoneOtp">Send OTP</button>
+          </div>
+          <div id="recaptcha-container"></div>
+          <div class="otpVerifyBox" id="phoneOtpBox" style="display:none;">
+            <div class="otpInputRow">
+              <input type="text" id="phoneOtpInput" maxlength="6" placeholder="6-digit SMS code" autocomplete="one-time-code">
+              <button type="button" class="btnConfirmOtp" id="btnConfirmPhoneOtp">Confirm</button>
+            </div>
+            <div class="otpMetaRow">
+              <span id="phoneOtpNotice">SMS sent to your phone</span>
+              <button type="button" class="btnResend" id="btnResendPhoneOtp" disabled>Resend (<span id="phoneTimer">45</span>s)</button>
+            </div>
           </div>
         </div>
 
@@ -1379,6 +1413,10 @@
             </span>
           </span>
         </button>
+
+        <div id="verifyPromptNotice" class="verifyPromptNotice">
+          🔒 Please verify your <strong>Email & Phone</strong> with OTP before submitting.
+        </div>
       </form>
 
       <div id="bookingSuccess" style="display:none;"></div>
@@ -1394,6 +1432,10 @@
     </div>
   </div>
 
+  <!-- Firebase SDK & Verification Logic -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="js/auth-otp.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

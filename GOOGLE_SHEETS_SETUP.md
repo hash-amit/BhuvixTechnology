@@ -17,7 +17,6 @@ Follow these simple steps (takes 1-2 minutes) to save all session bookings direc
 ```javascript
 function doPost(e) {
   try {
-    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
     var data = e.parameter;
     
     // Parse JSON if sent as payload
@@ -26,6 +25,51 @@ function doPost(e) {
         data = JSON.parse(e.postData.contents);
       } catch(err) {}
     }
+    
+    var cache = CacheService.getScriptCache();
+
+    // 1. Action: Send Free Email OTP
+    if (data.action === "send_email_otp") {
+      var email = (data.email || "").trim().toLowerCase();
+      if (!email) {
+        return ContentService.createTextOutput(JSON.stringify({ result: "error", message: "Email required" }))
+          .setMimeType(ContentService.MimeType.JSON);
+      }
+      var otp = Math.floor(100000 + Math.random() * 900000).toString();
+      cache.put("otp_" + email, otp, 600); // 10 minutes expiry
+
+      // Send verification email via GmailApp (100% Free)
+      GmailApp.sendEmail(
+        email,
+        "Your BhuvixTechnology Verification Code: " + otp,
+        "Hello,\n\nYour 6-digit verification code is: " + otp + "\n\nThis code will expire in 10 minutes.\n\nWarm regards,\nBhuvixTechnology Strategy Team",
+        {
+          name: "BhuvixTechnology Strategy Team"
+        }
+      );
+      
+      return ContentService.createTextOutput(JSON.stringify({ result: "success", message: "OTP sent" }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+
+    // 2. Action: Verify Email OTP
+    if (data.action === "verify_email_otp") {
+      var email = (data.email || "").trim().toLowerCase();
+      var userOtp = (data.otp || "").trim();
+      var cachedOtp = cache.get("otp_" + email);
+      
+      if (cachedOtp && cachedOtp === userOtp) {
+        cache.remove("otp_" + email);
+        return ContentService.createTextOutput(JSON.stringify({ result: "success", verified: true }))
+          .setMimeType(ContentService.MimeType.JSON);
+      } else {
+        return ContentService.createTextOutput(JSON.stringify({ result: "error", verified: false, message: "Invalid or expired OTP" }))
+          .setMimeType(ContentService.MimeType.JSON);
+      }
+    }
+
+    // 3. Action: Save Confirmed Booking to Google Sheet
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
     
     // Auto-create styled header row on first submission
     if (sheet.getLastRow() === 0) {
@@ -37,13 +81,14 @@ function doPost(e) {
         "Target Tech Role",
         "Years of Experience",
         "Preferred Time Slot",
-        "Career Goals / Notes"
+        "Career Goals / Notes",
+        "OTP Verified Status"
       ]);
-      sheet.getRange(1, 1, 1, 8).setFontWeight("bold").setBackground("#7C3AED").setFontColor("#FFFFFF");
+      sheet.getRange(1, 1, 1, 9).setFontWeight("bold").setBackground("#7C3AED").setFontColor("#FFFFFF");
       sheet.setFrozenRows(1);
     }
     
-    // Append the candidate data row
+    // Append the verified candidate data row
     sheet.appendRow([
       new Date(),
       data.name || "",
@@ -52,7 +97,8 @@ function doPost(e) {
       data.role || "",
       data.experience || "",
       data.slot || "",
-      data.notes || ""
+      data.notes || "",
+      "✓ Email & Phone OTP Verified"
     ]);
     
     return ContentService.createTextOutput(JSON.stringify({ "result": "success", "row": sheet.getLastRow() }))

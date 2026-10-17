@@ -188,6 +188,12 @@ function initBookingModal() {
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
+      // Enforce OTP verification before allowing submission
+      if (window.bhuvixAuth && (!window.bhuvixAuth.emailVerified || !window.bhuvixAuth.phoneVerified)) {
+        alert("Please verify both your Email and Phone number with OTP before confirming your session.");
+        return;
+      }
+
       const submitBtn = form.querySelector('button[type="submit"]');
       const originalBtnHtml = submitBtn ? submitBtn.innerHTML : '<span class="blobBtnLabel">Confirm My Session ↗</span>';
 
