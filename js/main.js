@@ -154,6 +154,51 @@ function initLiveClocks() {
 }
 
 // Booking Modal Logic
+const COUNTRY_RULES = {
+  US: {
+    name: "United States",
+    dial: "+1",
+    placeholder: "+1 (555) 000-0000",
+    hint: "Format: 10-digit US number (e.g. +1 555 123 4567)",
+    regex: /^(?:\+?1[\s-]?)?\(?([2-9][0-9]{2})\)?[\s-]?([2-9][0-9]{2})[\s-]?([0-9]{4})$/
+  },
+  CA: {
+    name: "Canada",
+    dial: "+1",
+    placeholder: "+1 (555) 000-0000",
+    hint: "Format: 10-digit Canadian number (e.g. +1 416 123 4567)",
+    regex: /^(?:\+?1[\s-]?)?\(?([2-9][0-9]{2})\)?[\s-]?([2-9][0-9]{2})[\s-]?([0-9]{4})$/
+  },
+  GB: {
+    name: "United Kingdom",
+    dial: "+44",
+    placeholder: "+44 7000 000000",
+    hint: "Format: 10 or 11 digits starting with 7 (e.g. +44 7123 456789)",
+    regex: /^(?:\+?44[\s-]?)?\(?0?([7][0-9]{3})\)?[\s-]?([0-9]{3})[\s-]?([0-9]{3})$/
+  },
+  AE: {
+    name: "United Arab Emirates",
+    dial: "+971",
+    placeholder: "+971 50 000 0000",
+    hint: "Format: 9 digits starting with 5 (e.g. +971 50 123 4567)",
+    regex: /^(?:\+?971[\s-]?)?\(?0?([5][0-9])\)?[\s-]?([0-9]{3})[\s-]?([0-9]{4})$/
+  },
+  IN: {
+    name: "India",
+    dial: "+91",
+    placeholder: "+91 98765 43210",
+    hint: "Format: 10 digits starting with 6-9 (e.g. +91 98765 43210)",
+    regex: /^(?:\+?91[\s-]?)?[6-9][0-9]{9}$/
+  },
+  OTHER: {
+    name: "Other Country",
+    dial: "+",
+    placeholder: "+00 000 0000000",
+    hint: "Format: International format with country code (e.g. +49 ...)",
+    regex: /^\+[1-9][0-9]{7,14}$/
+  }
+};
+
 function initBookingModal() {
   const modal = document.getElementById('bookingModal');
   if (!modal) return;
@@ -185,19 +230,75 @@ function initBookingModal() {
   });
 
   if (form) {
+    const countrySelect = form.querySelector('[name="country"]');
+    const phoneInput = form.querySelector('[name="phone"]');
+    const phoneBadge = form.querySelector('#phoneStatusBadge');
+    const phoneHelp = form.querySelector('#phoneFormatHelp');
+    const emailInput = form.querySelector('[name="email"]');
+
+    function validatePhone() {
+      if (!phoneInput) return true;
+      const country = countrySelect ? countrySelect.value : 'US';
+      const rule = COUNTRY_RULES[country] || COUNTRY_RULES.OTHER;
+      const val = phoneInput.value.trim();
+      if (!val) {
+        if (phoneBadge) {
+          phoneBadge.className = 'verifyStatus';
+          phoneBadge.textContent = 'Required';
+        }
+        return false;
+      }
+      const cleaned = val.replace(/[\s()-]/g, '');
+      const ok = rule.regex.test(val) || rule.regex.test(cleaned);
+      if (ok) {
+        if (phoneBadge) {
+          phoneBadge.className = 'verifyStatus verified';
+          phoneBadge.textContent = `✓ Valid (${rule.name})`;
+        }
+        if (phoneHelp) {
+          phoneHelp.style.color = '#059669';
+          phoneHelp.textContent = `✓ Valid contact format for ${rule.name}`;
+        }
+        return true;
+      } else {
+        if (phoneBadge) {
+          phoneBadge.className = 'verifyStatus pending';
+          phoneBadge.textContent = 'Invalid Format';
+        }
+        if (phoneHelp) {
+          phoneHelp.style.color = '#dc2626';
+          phoneHelp.textContent = rule.hint;
+        }
+        return false;
+      }
+    }
+
+    if (countrySelect) {
+      countrySelect.addEventListener('change', () => {
+        const rule = COUNTRY_RULES[countrySelect.value] || COUNTRY_RULES.OTHER;
+        if (phoneInput) {
+          phoneInput.placeholder = rule.placeholder;
+          if (!phoneInput.value.trim() || phoneInput.value.trim().length <= 4) {
+            phoneInput.value = rule.dial + " ";
+          }
+        }
+        if (phoneHelp) {
+          phoneHelp.style.color = '#64748b';
+          phoneHelp.textContent = rule.hint;
+        }
+        validatePhone();
+      });
+    }
+
+    if (phoneInput) {
+      phoneInput.addEventListener('input', validatePhone);
+      phoneInput.addEventListener('blur', validatePhone);
+    }
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      // Enforce Email OTP verification and Phone validation before allowing submission
-      if (window.bhuvixAuth && (!window.bhuvixAuth.emailVerified || !window.bhuvixAuth.phoneValid)) {
-        alert("Please verify your Email with OTP and enter a valid Phone number before confirming your session.");
-        return;
-      }
-
-      const submitBtn = form.querySelector('button[type="submit"]');
-      const originalBtnHtml = submitBtn ? submitBtn.innerHTML : '<span class="blobBtnLabel">Confirm My Session ↗</span>';
-
-      const name = form.querySelector('[name="name"]')?.value?.trim() || "Candidate";
+      const name = form.querySelector('[name="name"]')?.value?.trim() || "";
       const email = form.querySelector('[name="email"]')?.value?.trim() || "";
       const country = form.querySelector('[name="country"]')?.value?.trim() || "US";
       const phone = form.querySelector('[name="phone"]')?.value?.trim() || "";
@@ -205,6 +306,24 @@ function initBookingModal() {
       const experience = form.querySelector('[name="experience"]')?.value?.trim() || "";
       const slot = form.querySelector('[name="slot"]')?.value?.trim() || "Earliest Available";
       const notes = form.querySelector('[name="notes"]')?.value?.trim() || "";
+
+      // 1. Email format validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+      if (!email || !emailRegex.test(email)) {
+        alert("Please enter a valid email address (e.g. name@example.com).");
+        if (emailInput) emailInput.focus();
+        return;
+      }
+
+      // 2. Phone format validation
+      if (!validatePhone()) {
+        alert("Please enter a valid phone number for the selected country.");
+        if (phoneInput) phoneInput.focus();
+        return;
+      }
+
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalBtnHtml = submitBtn ? submitBtn.innerHTML : '<span class="blobBtnLabel">Confirm My Session ↗</span>';
 
       // Show submitting state
       if (submitBtn) {

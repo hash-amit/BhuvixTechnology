@@ -410,30 +410,11 @@
           </div>
         </div>
 
-        <!-- Verified Email Row -->
-        <div class="formGroup">
-          <div class="fieldLabelRow">
-            <label>Email Address *</label>
-            <span class="verifyStatus" id="emailStatusBadge">Unverified</span>
-          </div>
-          <div class="inputWithAction">
-            <input type="email" name="email" required placeholder="john@example.com">
-            <button type="button" class="btnOtpTrigger" id="btnSendEmailOtp">Verify</button>
-          </div>
-          <div class="otpVerifyBox" id="emailOtpBox" style="display:none;">
-            <div class="otpInputRow">
-              <input type="text" id="emailOtpInput" maxlength="6" placeholder="6-digit OTP" autocomplete="one-time-code">
-              <button type="button" class="btnConfirmOtp" id="btnConfirmEmailOtp">Confirm</button>
-            </div>
-            <div class="otpMetaRow">
-              <span id="emailOtpNotice">Code sent to your email</span>
-              <button type="button" class="btnResend" id="btnResendEmailOtp" disabled>Resend (<span id="emailTimer">45</span>s)</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Country & Phone Validation Row -->
         <div class="formRow">
+          <div class="formGroup">
+            <label>Email Address *</label>
+            <input type="email" name="email" required placeholder="john@example.com">
+          </div>
           <div class="formGroup">
             <label>Country *</label>
             <select name="country" required>
@@ -445,16 +426,15 @@
               <option value="OTHER">🌍 Other International</option>
             </select>
           </div>
-          <div class="formGroup">
-            <div class="fieldLabelRow">
-              <label>Phone / WhatsApp *</label>
-              <span class="verifyStatus" id="phoneStatusBadge">Required</span>
-            </div>
-            <div class="inputWithAction">
-              <input type="tel" name="phone" required placeholder="+1 (555) 000-0000">
-            </div>
-            <div id="phoneFormatHelp" style="font-size:11px; color:#64748b; margin-top:2px;">Format: 10-digit US number (e.g. +1 555 123 4567)</div>
+        </div>
+
+        <div class="formGroup">
+          <div class="fieldLabelRow">
+            <label>Phone / WhatsApp *</label>
+            <span class="verifyStatus" id="phoneStatusBadge">Required</span>
           </div>
+          <input type="tel" name="phone" required placeholder="+1 (555) 000-0000">
+          <div id="phoneFormatHelp" style="font-size:11.5px; color:#64748b; margin-top:2px;">Format: 10-digit US number (e.g. +1 555 123 4567)</div>
         </div>
 
         <div class="formRow">
@@ -486,16 +466,11 @@
         <button type="submit" class="primary" style="margin-top:10px;">
           <span class="blobBtnLabel">Confirm My Session ↗</span>
         </button>
-
-        <div id="verifyPromptNotice" class="verifyPromptNotice">
-          🔒 Please verify your <strong>Email with OTP</strong> and enter a valid Phone number.
-        </div>
       </form>
       <div id="bookingSuccess" style="display:none;"></div>
     </div>
   </div>
 
-  <script src="js/auth-otp.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
